@@ -3,13 +3,12 @@ package us.idinfor.smartcitizen.view.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.view.Window;
 
 import us.idinfor.smartcitizen.R;
 import us.idinfor.smartcitizen.di.HasComponent;
+import us.idinfor.smartcitizen.di.components.DaggerLoginComponent;
 import us.idinfor.smartcitizen.di.components.LoginComponent;
-import us.idinfor.smartcitizen.di.components.UserComponent;
 import us.idinfor.smartcitizen.view.fragment.LoginFragment;
 
 

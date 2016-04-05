@@ -9,39 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.fitness.data.Bucket;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.data.DataSet;
 import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
 
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import us.idinfor.smartcitizen.Constants;
 import us.idinfor.smartcitizen.R;
-import us.idinfor.smartcitizen.view.adapter.ActivitySegmentDetailsAdapter;
-import us.idinfor.smartcitizen.event.FitBucketsResultEvent;
-import us.idinfor.smartcitizen.event.GoogleApiClientConnectedEvent;
 import us.idinfor.smartcitizen.data.api.google.fit.ActivityDetails;
-import us.idinfor.smartcitizen.data.api.google.fit.entity.ActivitySummaryFit;
-import us.idinfor.smartcitizen.data.api.google.fit.entity.CaloriesExpendedFit;
-import us.idinfor.smartcitizen.data.api.google.fit.entity.DistanceDeltaFit;
-import us.idinfor.smartcitizen.data.api.google.fit.entity.LocationBoundingBoxFit;
-import us.idinfor.smartcitizen.data.api.google.fit.entity.StepCountDeltaFit;
+import us.idinfor.smartcitizen.view.adapter.ActivitySegmentDetailsAdapter;
 
 
 public class ActivityDetailsActivityFragment extends BaseFragment {
 
     private static final String TAG = ActivityDetailsActivityFragment.class.getCanonicalName();
 
-    @Bind(R.id.progressBar)
+    @Bind(R.id.progressBarHorizontal)
     ProgressBar mProgressBar;
     @Bind(R.id.activitiesRecyclerView)
     RecyclerView mActivitiesRecyclerView;
@@ -103,7 +88,7 @@ public class ActivityDetailsActivityFragment extends BaseFragment {
                 GoogleFitApi.QUERY_DEFAULT);*/
     }
 
-    @Subscribe
+   /* @Subscribe
     public void onEvent(GoogleApiClientConnectedEvent event){
         queryGoogleFit(Constants.RANGE_DAY);
     }
@@ -229,5 +214,5 @@ public class ActivityDetailsActivityFragment extends BaseFragment {
     @Override
     protected void injectActivityComponent() {
         getBaseActivity().getActivityComponent().inject(this);
-    }
+    }*/
 }

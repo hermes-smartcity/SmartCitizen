@@ -43,10 +43,10 @@ public class LocationDetailsActivity extends BaseActivity {
         ButterKnife.unbind(this);
     }
 
-    @Override
+    /*@Override
     protected void injectActivityComponent() {
         getActivityComponent().inject(this);
-    }
+    }*/
 
     @OnItemSelected(R.id.toolbarSpinner)
     public void setTimeRange(int position){

@@ -5,15 +5,15 @@ import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import us.idinfor.smartcitizen.view.activity.LoginActivity;
 import us.idinfor.smartcitizen.view.activity.MainActivity;
-import us.idinfor.smartcitizen.di.scopes.PerApp;
 
 /**
  * Class used to navigate through the application.
  */
-@PerApp
+@Singleton
 public class Navigator {
 
     @Inject

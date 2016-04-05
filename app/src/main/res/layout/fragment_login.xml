@@ -30,12 +30,16 @@
     </RelativeLayout>
 
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/signinBtn"
+        android:id="@+id/signInGoogleBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:visibility="visible" />
+
+    <include
+        layout="@layout/progress_bar"
+        />
 
     <!--<ProgressBar
         android:id="@+id/loginProgressBar"

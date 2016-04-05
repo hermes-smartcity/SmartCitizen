@@ -18,10 +18,10 @@ public class ActivityDetailsActivity extends BaseActivity {
         buildActionBarToolbar(getString(R.string.title_activity_activity_details),true);
     }
 
-    @Override
+    /*@Override
     protected void injectActivityComponent() {
         getActivityComponent().inject(this);
-    }
+    }*/
 
     public static void launch(Activity activity) {
         Intent intent = new Intent(activity, ActivityDetailsActivity.class);

@@ -14,12 +14,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import com.crashlytics.android.Crashlytics;
 
 import javax.inject.Inject;
 
@@ -28,8 +25,8 @@ import butterknife.ButterKnife;
 import us.idinfor.smartcitizen.Constants;
 import us.idinfor.smartcitizen.R;
 import us.idinfor.smartcitizen.Utils;
-import us.idinfor.smartcitizen.view.fragment.FitnessFragment;
 import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenSyncService;
+import us.idinfor.smartcitizen.view.fragment.FitnessFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -70,10 +67,10 @@ public class MainActivity extends BaseActivity
             finish();
         }
 
-        if (TextUtils.isEmpty(prefs.getString(Constants.PROPERTY_USER_NAME, ""))) {
+        /*if (TextUtils.isEmpty(prefs.getString(Constants.PROPERTY_USER_NAME, ""))) {
             LoginActivity.launch(this);
             finish();
-        }
+        }*/
 
         if(!Utils.isServiceRunning(this,HermesCitizenSyncService.class)){
             //FIXME
@@ -148,13 +145,13 @@ public class MainActivity extends BaseActivity
         ButterKnife.unbind(this);
     }
 
-    @Override
+    /*@Override
     protected void injectActivityComponent() {
         getActivityComponent().inject(this);
-    }
+    }*/
 
     private void logFabricUser() {
-        Crashlytics.setUserIdentifier(prefs.getString(Constants.PROPERTY_USER_NAME,getString(R.string.user)));
+        //Crashlytics.setUserIdentifier(prefs.getString(Constants.PROPERTY_USER_NAME,getString(R.string.user)));
     }
 
     private void selectDrawerItem(int itemId) {

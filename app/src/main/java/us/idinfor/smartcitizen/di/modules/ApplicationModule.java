@@ -5,14 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.crashlytics.android.Crashlytics;
-import com.squareup.leakcanary.LeakCanary;
-
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.fabric.sdk.android.Fabric;
+import es.us.lsi.smartcitizen.repository.LoginDataRepository;
+import es.us.lsi.smartcitizen.repository.LoginRepository;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -20,7 +19,6 @@ import us.idinfor.smartcitizen.BuildConfig;
 import us.idinfor.smartcitizen.Constants;
 import us.idinfor.smartcitizen.SmartCitizenApplication;
 import us.idinfor.smartcitizen.data.api.google.fit.GoogleFitHelper;
-import us.idinfor.smartcitizen.di.scopes.PerApp;
 
 @Module
 public class ApplicationModule {
@@ -31,9 +29,9 @@ public class ApplicationModule {
         this.mApplication = application;
 
         if(BuildConfig.DEBUG){
-            LeakCanary.install(this.mApplication);
+            //LeakCanary.install(this.mApplication);
         }else{
-            Fabric.with(this.mApplication, new Crashlytics());
+            //Fabric.with(this.mApplication, new Crashlytics());
         }
 
         if(!TextUtils.isEmpty(provideDefaultSharedPreferences().getString(Constants.PROPERTY_USER_NAME, ""))){
@@ -42,47 +40,47 @@ public class ApplicationModule {
     }
 
     @Provides
-    @PerApp
+    @Singleton
     Context provideApplicationContext() {
         return this.mApplication;
     }
 
     @Provides
-    @PerApp
+    @Singleton
     SharedPreferences provideDefaultSharedPreferences() {
         return PreferenceManager
                 .getDefaultSharedPreferences(this.mApplication);
     }
 
     @Provides
-    @PerApp
-    UserRepository provideUserRepository(UserDataRepository userDataRepository){
-        return userDataRepository;
+    @Singleton
+    LoginRepository provideLoginRepository(LoginDataRepository loginDataRepository){
+        return loginDataRepository;
     }
 
     @Provides
-    @PerApp
+    @Singleton
     @Named("executor_thread")
     Scheduler provideExecutorThread(){
         return Schedulers.newThread();
     }
 
     @Provides
-    @PerApp
+    @Singleton
     @Named("computation_thread")
     Scheduler provideComputationThread(){
         return Schedulers.computation();
     }
 
     @Provides
-    @PerApp
+    @Singleton
     @Named("io_thread")
     Scheduler provideIOThread(){
         return Schedulers.io();
     }
 
     @Provides
-    @PerApp
+    @Singleton
     @Named("ui_thread")
     Scheduler provideUIThread(){
         return AndroidSchedulers.mainThread();

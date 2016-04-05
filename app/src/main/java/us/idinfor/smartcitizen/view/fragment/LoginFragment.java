@@ -1,50 +1,26 @@
 package us.idinfor.smartcitizen.view.fragment;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.Lazy;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import us.idinfor.smartcitizen.Constants;
 import us.idinfor.smartcitizen.R;
-import us.idinfor.smartcitizen.data.api.google.fit.GoogleFitHelper;
-import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenApi;
-import us.idinfor.smartcitizen.data.api.hermes.entity.User;
-import us.idinfor.smartcitizen.di.components.DaggerGoogleApiClientSignInComponent;
-import us.idinfor.smartcitizen.di.components.GoogleApiClientSignInComponent;
 import us.idinfor.smartcitizen.di.components.LoginComponent;
-import us.idinfor.smartcitizen.di.modules.ActivityModule;
-import us.idinfor.smartcitizen.di.modules.GoogleApiClientSignInModule;
 import us.idinfor.smartcitizen.mvp.presenter.LoginPresenter;
 import us.idinfor.smartcitizen.mvp.view.LoginView;
-import us.idinfor.smartcitizen.view.activity.MainActivity;
 
-public class LoginFragment extends BaseFragment implements LoginView, GoogleApiClient.OnConnectionFailedListener {
+public class LoginFragment extends BaseFragment implements LoginView /*, GoogleApiClient.OnConnectionFailedListener*/ {
 
     private static final String TAG = LoginFragment.class.getCanonicalName();
     private static final int REQUEST_SIGN_IN = 2001;
@@ -52,18 +28,17 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
     @Inject
     LoginPresenter mLoginPresenter;
 
-    @Bind(R.id.signinBtn)
-    SignInButton mSignInBtn;
+    @Bind(R.id.signInGoogleBtn)
+    SignInButton mSignInGoogleBtn;
+    @Bind(R.id.progressBar)
+    RelativeLayout mProgressBar;
 
-    @Inject
+   /* @Inject
     GoogleApiClient mGoogleApiClient;
     @Inject
     HermesCitizenApi mHermesCitizenApi;
     @Inject
-    Lazy<SharedPreferences> prefs;
-
-    private GoogleApiClientSignInComponent mGoogleApiClientSignInComponent;
-    private ProgressDialog mProgressDialog;
+    Lazy<SharedPreferences> prefs;*/
 
     public LoginFragment(){
         setRetainInstance(true);
@@ -110,25 +85,26 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
         googleApiClientSignInComponent.inject(this);
     }*/
 
-    @Override
+   /* @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
-    }
+    }*/
 
-    @OnClick(R.id.signinBtn)
-    public void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, REQUEST_SIGN_IN);
+    @OnClick(R.id.signInGoogleBtn)
+    public void onClickSignInGoogleButton() {
+        this.mLoginPresenter.attemptLogin();
+        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, REQUEST_SIGN_IN);*/
     }
 
     private void customizeSignInBtn(){
-        mSignInBtn.setSize(SignInButton.SIZE_WIDE);
-        mSignInBtn.setColorScheme(SignInButton.COLOR_LIGHT);
+        mSignInGoogleBtn.setSize(SignInButton.SIZE_WIDE);
+        mSignInGoogleBtn.setColorScheme(SignInButton.COLOR_LIGHT);
     }
 
-    private void signOut() {
+   /* private void signOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(status -> {
            if(status.isSuccess())
                Log.d(TAG,"User signed out from Google");
@@ -140,9 +116,9 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
             if(status.isSuccess())
                 Log.d(TAG,"Revoked Google access");
         });
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -150,9 +126,9 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
-    }
+    }*/
 
-    private void handleSignInResult(GoogleSignInResult result) {
+    /*private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess() && result.getSignInAccount() != null) {
             // Signed in successfully, register user in Smart Citizen backend.
@@ -166,9 +142,9 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
                     Toast.LENGTH_LONG)
                     .show();
         }
-    }
+    }*/
 
-    private void loginOrRegisterUserInHermes(final String email) {
+    /*private void loginOrRegisterUserInHermes(final String email) {
         showProgressDialog();
         mHermesCitizenApi.existsUser(email)
                 .subscribeOn(Schedulers.io())
@@ -192,9 +168,9 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
                 )
                 .doOnTerminate(() -> hideProgressDialog())
                 .subscribe();
-    }
+    }*/
 
-    private void doLoginUser(String email){
+    /*private void doLoginUser(String email){
         Log.i(TAG, "User registered or logged successfully");
         Toast.makeText(getContext(), "User signed up", Toast.LENGTH_LONG).show();
         prefs.get()
@@ -204,9 +180,9 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
         GoogleFitHelper.initFitApi(getBaseActivity().getApplicationContext());
         MainActivity.launch(getActivity());
         getActivity().finish();
-    }
+    }*/
 
-    private void doRegisterUser(Integer result, String email){
+    /*private void doRegisterUser(Integer result, String email){
         switch (result) {
             case HermesCitizenApi.RESPONSE_OK:
                 doLoginUser(email);
@@ -229,31 +205,18 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
                 signOut();
                 revokeAccess();
         }
-    }
-    
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setMessage(getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
+    }*/
 
 
     @Override
-    public void showProgress() {
-
+    public void showLoading() {
+        this.mProgressBar.setVisibility(View.VISIBLE);
+        this.getActivity().setProgressBarIndeterminateVisibility(true);
     }
 
     @Override
-    public void hideProgress() {
-
+    public void hideLoading() {
+        this.mProgressBar.setVisibility(View.GONE);
+        this.getActivity().setProgressBarIndeterminateVisibility(false);
     }
 }

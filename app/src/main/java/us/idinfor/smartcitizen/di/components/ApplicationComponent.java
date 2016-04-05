@@ -6,18 +6,19 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Component;
+import es.us.lsi.smartcitizen.repository.LoginRepository;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import rx.Scheduler;
-import us.idinfor.smartcitizen.view.activity.BaseActivity;
 import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenApi;
 import us.idinfor.smartcitizen.di.modules.ApplicationModule;
 import us.idinfor.smartcitizen.di.modules.NetworkModule;
-import us.idinfor.smartcitizen.di.scopes.PerApp;
+import us.idinfor.smartcitizen.view.activity.BaseActivity;
 
-@PerApp
+@Singleton
 @Component(modules = {ApplicationModule.class, NetworkModule.class})
 public interface ApplicationComponent {
 
@@ -35,6 +36,6 @@ public interface ApplicationComponent {
     Retrofit.Builder retrofitBuilder();
     HermesCitizenApi hermesCitizenApi();
 
-    UserRepository userRepository();
+    LoginRepository loginRepository();
 
 }

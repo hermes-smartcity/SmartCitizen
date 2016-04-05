@@ -8,23 +8,14 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.google.android.gms.fitness.FitnessActivities;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import us.idinfor.smartcitizen.Constants;
 import us.idinfor.smartcitizen.Utils;
-import us.idinfor.smartcitizen.data.api.google.fit.GoogleFitHelper;
 import us.idinfor.smartcitizen.data.api.google.fit.entity.ActivitySegmentFit;
 import us.idinfor.smartcitizen.data.api.google.fit.entity.LocationSampleFit;
-import us.idinfor.smartcitizen.event.FitBucketsResultEvent;
-import us.idinfor.smartcitizen.event.FitDataSetsResultEvent;
 
 public class HermesCitizenSyncService extends Service {
 
@@ -79,16 +70,16 @@ public class HermesCitizenSyncService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(!EventBus.getDefault().isRegistered(this)){
+        /*if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
-        }
+        }*/
     }
 
     @Override
     public void onDestroy() {
-        if(EventBus.getDefault().isRegistered(this)){
+       /* if(EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().unregister(this);
-        }
+        }*/
         super.onDestroy();
     }
 
@@ -157,7 +148,7 @@ public class HermesCitizenSyncService extends Service {
         }*/
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+   /* @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onFitDataResult(FitDataSetsResultEvent result){
         switch (result.getQueryType()){
             case GoogleFitHelper.QUERY_LOCATIONS_HERMES:
@@ -169,9 +160,9 @@ public class HermesCitizenSyncService extends Service {
                 }
                 break;
         }
-    }
+    }*/
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    /*@Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onFitDataResult(FitBucketsResultEvent result){
         switch (result.getQueryType()){
             case GoogleFitHelper.QUERY_ACTIVITIES_HERMES:
@@ -186,7 +177,7 @@ public class HermesCitizenSyncService extends Service {
 
                 break;
         }
-    }
+    }*/
 
     public static void startSync(Context context){
         Log.i(TAG,"@startSync");

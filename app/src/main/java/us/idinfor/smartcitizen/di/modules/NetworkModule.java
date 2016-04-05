@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +17,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenApi;
-import us.idinfor.smartcitizen.di.scopes.PerApp;
 
 @Module
 public class NetworkModule {
@@ -24,14 +24,14 @@ public class NetworkModule {
     private final static long SECONDS_TIMEOUT = 20;
 
     @Provides
-    @PerApp
+    @Singleton
     Cache provideOkHttpCache(Context context) {
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         return new Cache(context.getCacheDir(), cacheSize);
     }
 
     @Provides
-    @PerApp
+    @Singleton
     OkHttpClient provideOkHttpClient(Cache cache) {
         return new OkHttpClient.Builder()
                 .connectTimeout(SECONDS_TIMEOUT, TimeUnit.SECONDS)
@@ -42,13 +42,13 @@ public class NetworkModule {
     }
 
     @Provides
-    @PerApp
+    @Singleton
     Gson provideGson() {
         return new Gson();
     }
 
     @Provides
-    @PerApp
+    @Singleton
     Retrofit.Builder provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -57,7 +57,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @PerApp
+    @Singleton
     @Named("retrofit_hermescitizen")
     Retrofit provideHermesCitizenRetrofit(Retrofit.Builder builder) {
         return builder
@@ -66,7 +66,7 @@ public class NetworkModule {
     }
 
     @Provides
-    @PerApp
+    @Singleton
     HermesCitizenApi provideHermesCitizenApi(
             @Named("retrofit_hermescitizen") Retrofit retrofit) {
         return retrofit.create(HermesCitizenApi.class);

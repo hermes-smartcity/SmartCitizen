@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/progress_bar"
-            android:id="@+id/progressBar"/>
+        <include layout="@layout/progress_bar_horizontal"
+            android:id="@+id/progressBarHorizontal"/>
 
         <LinearLayout
             android:layout_width="match_parent"
