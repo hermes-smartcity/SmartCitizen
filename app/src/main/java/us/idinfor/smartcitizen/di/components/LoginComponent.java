@@ -1,0 +1,18 @@
+package us.idinfor.smartcitizen.di.components;
+
+import dagger.Component;
+import us.idinfor.smartcitizen.di.modules.ActivityModule;
+import us.idinfor.smartcitizen.di.modules.LoginModule;
+import us.idinfor.smartcitizen.di.scopes.PerActivity;
+import us.idinfor.smartcitizen.view.fragment.LoginFragment;
+
+@PerActivity
+@Component(dependencies = ApplicationComponent.class,
+        modules = {ActivityModule.class, LoginModule.class} )
+public interface LoginComponent extends ActivityComponent {
+
+    void inject (LoginFragment loginFragment);
+
+    UseCase getUserLoginUseCase();
+    UseCase getUserSignupUseCase();
+}

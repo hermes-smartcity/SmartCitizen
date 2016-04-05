@@ -21,7 +21,6 @@ import us.idinfor.smartcitizen.di.scopes.PerApp;
 @Module
 public class NetworkModule {
 
-    public final static String NAME_RETROFIT_HERMESCITIZEN = "NAME_RETROFIT_HERMESCITIZEN";
     private final static long SECONDS_TIMEOUT = 20;
 
     @Provides
@@ -57,9 +56,9 @@ public class NetworkModule {
                 .client(okHttpClient);
     }
 
-    @Named(NAME_RETROFIT_HERMESCITIZEN)
     @Provides
     @PerApp
+    @Named("retrofit_hermescitizen")
     Retrofit provideHermesCitizenRetrofit(Retrofit.Builder builder) {
         return builder
                 .baseUrl(HermesCitizenApi.SERVICE_ENDPOINT)
@@ -69,7 +68,7 @@ public class NetworkModule {
     @Provides
     @PerApp
     HermesCitizenApi provideHermesCitizenApi(
-            @Named(NAME_RETROFIT_HERMESCITIZEN) Retrofit retrofit) {
+            @Named("retrofit_hermescitizen") Retrofit retrofit) {
         return retrofit.create(HermesCitizenApi.class);
     }
 

@@ -6,7 +6,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import dagger.Module;
 import dagger.Provides;
-import us.idinfor.smartcitizen.activity.BaseActivity;
+import us.idinfor.smartcitizen.view.activity.BaseActivity;
 import us.idinfor.smartcitizen.di.scopes.PerActivity;
 
 @Module (includes = ActivityModule.class)
