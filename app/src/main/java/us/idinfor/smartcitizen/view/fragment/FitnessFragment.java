@@ -67,7 +67,7 @@ public class FitnessFragment extends BaseFragment {
 
     private static final String TAG = FitnessFragment.class.getCanonicalName();
 
-    @Bind(R.id.progressBar)
+    @Bind(R.id.progressBarHorizontal)
     ProgressBar mProgressBar;
     @Bind(R.id.stepsCounter)
     TextView mStepsCounter;

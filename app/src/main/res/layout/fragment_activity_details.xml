@@ -6,8 +6,8 @@
     tools:showIn="@layout/activity_activity_details"
     android:orientation="vertical">
 
-    <include layout="@layout/progress_bar"
-        android:id="@+id/progressBar"/>
+    <include layout="@layout/progress_bar_horizontal"
+        android:id="@+id/progressBarHorizontal"/>
 
     <View
         android:layout_width="1dp"
@@ -19,6 +19,6 @@
         android:id="@+id/activitiesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/progressBar"/>
+        android:layout_below="@id/progressBarHorizontal"/>
 
 </RelativeLayout>

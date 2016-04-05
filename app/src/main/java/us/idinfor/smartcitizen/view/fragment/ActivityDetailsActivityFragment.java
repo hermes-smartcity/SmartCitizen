@@ -41,7 +41,7 @@ public class ActivityDetailsActivityFragment extends BaseFragment {
 
     private static final String TAG = ActivityDetailsActivityFragment.class.getCanonicalName();
 
-    @Bind(R.id.progressBar)
+    @Bind(R.id.progressBarHorizontal)
     ProgressBar mProgressBar;
     @Bind(R.id.activitiesRecyclerView)
     RecyclerView mActivitiesRecyclerView;

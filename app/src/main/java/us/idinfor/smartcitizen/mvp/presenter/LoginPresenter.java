@@ -16,7 +16,6 @@ public class LoginPresenter implements Presenter {
         this.mLoginUseCase = getLoginUseCase;
     }
 
-
     @Override
     public void setView(View v) {
         mLoginView = (LoginView) v;
@@ -50,6 +49,19 @@ public class LoginPresenter implements Presenter {
     @Override
     public void onDestroy() {
 
+    }
+
+    public void attemptLogin(){
+        this.showViewLoading();
+
+    }
+
+    private void showViewLoading() {
+        this.mLoginView.showLoading();
+    }
+
+    private void hideViewLoading() {
+        this.mLoginView.hideLoading();
     }
 
 }

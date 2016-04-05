@@ -1,9 +1,6 @@
 package us.idinfor.smartcitizen.view.fragment;
 
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -35,11 +33,8 @@ import us.idinfor.smartcitizen.R;
 import us.idinfor.smartcitizen.data.api.google.fit.GoogleFitHelper;
 import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenApi;
 import us.idinfor.smartcitizen.data.api.hermes.entity.User;
-import us.idinfor.smartcitizen.di.components.DaggerGoogleApiClientSignInComponent;
 import us.idinfor.smartcitizen.di.components.GoogleApiClientSignInComponent;
 import us.idinfor.smartcitizen.di.components.LoginComponent;
-import us.idinfor.smartcitizen.di.modules.ActivityModule;
-import us.idinfor.smartcitizen.di.modules.GoogleApiClientSignInModule;
 import us.idinfor.smartcitizen.mvp.presenter.LoginPresenter;
 import us.idinfor.smartcitizen.mvp.view.LoginView;
 import us.idinfor.smartcitizen.view.activity.MainActivity;
@@ -52,8 +47,10 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
     @Inject
     LoginPresenter mLoginPresenter;
 
-    @Bind(R.id.signinBtn)
-    SignInButton mSignInBtn;
+    @Bind(R.id.signInGoogleBtn)
+    SignInButton mSignInGoogleBtn;
+    @Bind(R.id.progressBar)
+    RelativeLayout mProgressBar;
 
     @Inject
     GoogleApiClient mGoogleApiClient;
@@ -63,7 +60,6 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
     Lazy<SharedPreferences> prefs;
 
     private GoogleApiClientSignInComponent mGoogleApiClientSignInComponent;
-    private ProgressDialog mProgressDialog;
 
     public LoginFragment(){
         setRetainInstance(true);
@@ -117,15 +113,16 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
         Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 
-    @OnClick(R.id.signinBtn)
-    public void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, REQUEST_SIGN_IN);
+    @OnClick(R.id.signInGoogleBtn)
+    public void onClickSignInGoogleButton() {
+        this.mLoginPresenter.attemptLogin();
+        /*Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, REQUEST_SIGN_IN);*/
     }
 
     private void customizeSignInBtn(){
-        mSignInBtn.setSize(SignInButton.SIZE_WIDE);
-        mSignInBtn.setColorScheme(SignInButton.COLOR_LIGHT);
+        mSignInGoogleBtn.setSize(SignInButton.SIZE_WIDE);
+        mSignInGoogleBtn.setColorScheme(SignInButton.COLOR_LIGHT);
     }
 
     private void signOut() {
@@ -230,30 +227,17 @@ public class LoginFragment extends BaseFragment implements LoginView, GoogleApiC
                 revokeAccess();
         }
     }
-    
-    private void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setMessage(getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-        mProgressDialog.show();
-    }
-
-    private void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 
 
     @Override
-    public void showProgress() {
-
+    public void showLoading() {
+        this.mProgressBar.setVisibility(View.VISIBLE);
+        this.getActivity().setProgressBarIndeterminateVisibility(true);
     }
 
     @Override
-    public void hideProgress() {
-
+    public void hideLoading() {
+        this.mProgressBar.setVisibility(View.GONE);
+        this.getActivity().setProgressBarIndeterminateVisibility(false);
     }
 }

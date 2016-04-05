@@ -45,7 +45,7 @@ public class LocationDetailsActivityFragment extends BaseFragment {
 
     private static final String TAG = LocationDetailsActivityFragment.class.getCanonicalName();
 
-    @Bind(R.id.progressBar)
+    @Bind(R.id.progressBarHorizontal)
     ProgressBar mProgressBar;
 
     private GoogleMap mMap;

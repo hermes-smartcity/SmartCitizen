@@ -1,6 +1,7 @@
 package us.idinfor.smartcitizen.di.components;
 
 import dagger.Component;
+import es.us.lsi.smartcitizen.interactor.UseCase;
 import us.idinfor.smartcitizen.di.modules.ActivityModule;
 import us.idinfor.smartcitizen.di.modules.LoginModule;
 import us.idinfor.smartcitizen.di.scopes.PerActivity;
@@ -13,6 +14,6 @@ public interface LoginComponent extends ActivityComponent {
 
     void inject (LoginFragment loginFragment);
 
-    UseCase getUserLoginUseCase();
-    UseCase getUserSignupUseCase();
+    UseCase getLoginUseCase();
+    //UseCase getSignupUseCase();
 }

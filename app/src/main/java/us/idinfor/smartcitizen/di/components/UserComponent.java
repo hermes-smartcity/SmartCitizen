@@ -1,6 +1,7 @@
 package us.idinfor.smartcitizen.di.components;
 
 import dagger.Component;
+import es.us.lsi.smartcitizen.interactor.UseCase;
 import us.idinfor.smartcitizen.di.modules.ActivityModule;
 import us.idinfor.smartcitizen.di.modules.UserModule;
 import us.idinfor.smartcitizen.di.scopes.PerActivity;
