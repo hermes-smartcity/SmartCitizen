@@ -7,7 +7,7 @@ import es.us.lsi.smartcitizen.interactor.UseCase;
 import us.idinfor.smartcitizen.di.modules.ActivityModule;
 import us.idinfor.smartcitizen.di.modules.LoginModule;
 import us.idinfor.smartcitizen.di.scopes.PerActivity;
-import us.idinfor.smartcitizen.view.fragment.LoginFragment;
+import us.idinfor.smartcitizen.ui.fragment.LoginFragment;
 
 @PerActivity
 @Component(dependencies = ApplicationComponent.class,

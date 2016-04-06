@@ -16,7 +16,7 @@ import rx.Scheduler;
 import us.idinfor.smartcitizen.data.api.hermes.HermesCitizenApi;
 import us.idinfor.smartcitizen.di.modules.ApplicationModule;
 import us.idinfor.smartcitizen.di.modules.NetworkModule;
-import us.idinfor.smartcitizen.view.activity.BaseActivity;
+import us.idinfor.smartcitizen.ui.activity.BaseActivity;
 
 @Singleton
 @Component(modules = {ApplicationModule.class, NetworkModule.class})
