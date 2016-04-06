@@ -19,6 +19,6 @@ public class GetLogin extends UseCase {
     }
 
     @Override public Observable buildUseCaseObservable() {
-        return this.mLoginRepository.login();
+        return this.mLoginRepository.googleLogin();
     }
 }
